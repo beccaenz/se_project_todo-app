@@ -14,4 +14,4 @@ The technology used in this website is html, CSS, and Javascript. The Javascript
 
 This project is deployed on GitHub Pages:
 
-https://github.com/beccaenz/se_project_todo-app.git
+https://beccaenz.github.io/se_project_todo-app/
