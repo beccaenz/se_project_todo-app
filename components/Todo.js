@@ -41,9 +41,12 @@ class Todo {
 
     const todoNameEl = this._todoElement.querySelector(".todo__name");
     const todoDate = this._todoElement.querySelector(".todo__date");
-    
+    const todoDeleteBtn = this._todoElement.querySelector(".todo_delete-btn");
+
+
     todoNameEl.textContent = this._data.name;
- todoDate.textContent = this._data.date;
+ todoDate.textContent = this._data.toLocaleDateString();
+ //correct??
    
     this._generateCheckboxEl();
     this._setEventListeners();

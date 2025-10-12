@@ -1,21 +1,17 @@
 # Simple Todo App
 
-Give a brief description of the project here. Feel free to give it a different name.
+This project is a To Do website to help the user track To Do items.
 
 ## Functionality
 
-Give a more detailed explanation of the project and its functionality.
+The website allows the user to create To Do items give a due date and delete previous created items
 
 ## Technology
 
-Give a description of the technologies and techniques used. Pictures, GIFs, or screenshots that detail the project features are recommended.
+The technology used in this website is html, CSS, and Javascript. The Javascript in this project validates that all criteria in the form is met before submitting the form.
 
 ## Deployment
 
 This project is deployed on GitHub Pages:
 
-- ADD LINK HERE
-
-
 https://github.com/beccaenz/se_project_todo-app.git
-

@@ -1,6 +1,7 @@
 class FormValidator {
   constructor(settings, formEl) {
-    this._forSelector = settings.forSelector;
+    //use???
+    this._formSelector = settings.formSelector;
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
     this._errorClass = settings.errorClass;
@@ -12,7 +13,7 @@ class FormValidator {
   //add all other methods from validate
   /////////////////////////////////////////////////////////
 
-  _showInputError = (inputElement, errorMessage) => {
+  _showInputError = (inputElement, errorMessage) {
     const errorElement = this._formEl(`#${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
@@ -20,7 +21,7 @@ class FormValidator {
   };
 
   _hideInputError = (inputElement) => {
-    const errorElement = this._formEl(`#${inputElement.id}-error`);
+    const errorElement = this._formEl.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
@@ -30,15 +31,18 @@ class FormValidator {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      _hideInputError(InputElement);
+      this._hideInputError(InputElement);
     }
   }
 
-  _hasInvalidInput = (inputList) => {
+  //removed inputList
+  _hasInvalidInput = () => {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
+
+  ///change???
 
   /////////////////////////??
 
@@ -54,7 +58,7 @@ class FormValidator {
 
   _setEventListeners() {
     this._inputList = Array.from(
-      this._formEl.querySelectorAll(settings._inputSelector)
+      this._formEl.querySelectorAll(this._inputSelector)
     );
 
     //todo - make seteventlisteners work and methods
@@ -62,22 +66,57 @@ class FormValidator {
     //     settings.submitButtonSelector,
     //   );
 
-    toggleButtonState(inputList, buttonElement, settings);
+//     toggleButtonState(inputList, buttonElement, settings);
 
-    inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
-        this._checkInputValidity(inputElement);
-        //   toggleButtonState(inputList, buttonElement, settings);
-      });
-    });
-  }
+//     inputList.forEach((inputElement) => {
+//       inputElement.addEventListener("input", () => {
+//         this._checkInputValidity(inputElement);
+//         //   toggleButtonState(inputList, buttonElement, settings);
+//       });
+//     });
+//   }
 
   enableValidation() {
-    this._formEl.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
+    this._formEl.addEventListener("submit", (evt) => evt.preventDefault());
+    
     this._setEventListeners();
   }
 }
 
+resetValidation(inputList, buttonElement, settings){
+
+    this._inputList = Array.form(this._formEl.querySelectorAll(this._inputSelector));
+    this._inputList.forEach((input) => this._hideInputError(input));
+    this._buttonElement = this._formEl.querySelector(this._submitButtonSelector);
+toggleButtonState(inputList, buttonElement, settings);
+}
+
 export default FormValidator;
+
+///working
+
+// addTodoForm.addEventListener("submit", (evt) => {
+//   evt.preventDefault();
+//   const name = evt.target.name.value;
+//   const dateInput = evt.target.date.value;
+
+//   // Create a date object and adjust for timezone
+//   const date = new Date(dateInput);
+//   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+//   const id = uuidv4();
+//   const values = { name, date, id };
+//   const todo = generateTodo(values);
+//   todosList.append(todo);
+//   closeModal(addTodoPopup);
+// });
+
+
+
+// initialTodos.forEach((item) => {
+//   const todo = generateTodo(item);
+//   todosList.append(todo);
+// });
+
+// const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
+// newTodoValidator.enableValidation();
