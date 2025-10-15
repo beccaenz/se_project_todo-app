@@ -23,11 +23,15 @@ class FormValidator {
     }
   }
 
-  _hasInvalidInput(inputList) {
+  ///needs correction - this._inputSelector -  add list of inputs usding the existing class field?
+
+  _hasInvalidInput() {
     return inputList.some((input) => !input.validity.valid);
   }
 
-  _toggleButtonState = (inputList, buttonElement) => {
+  ///needs correction -this._inputSelector, this._submitButtonSelector   - add list of inputs usding the existing class field?
+
+  _toggleButtonState = () => {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass);
       buttonElement.disabled = true;
@@ -46,13 +50,14 @@ class FormValidator {
       this._submitButtonSelector
     );
 
-    this._toggleButtonState(this._inputList, this._buttonElement);
+    //this._inputList, this._buttonElement
+
+    this._toggleButtonState();
 
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(this._inputList, this._buttonElement);
-        ///correct??
+        this._toggleButtonState();
       });
     });
   }
@@ -60,11 +65,13 @@ class FormValidator {
   enableValidation() {
     this._formEl.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      this._resetValidation();
     });
     this._setEventListeners();
   }
 
   resetValidation() {
+    this._formEl.reset();
     this._inputList = Array.from(
       this._formEl.querySelectorAll(this._inputSelector)
     );
@@ -73,17 +80,7 @@ class FormValidator {
       this._submitButtonSelector
     );
 
-    this._inputList.forEach((input) => {
-      const errorElement = this._formEl.querySelector(`#${input.id}-error`);
-
-      errorElement.textContent = "";
-      errorElement.classList.remove(this._errorClass);
-      input.classList.remove(this._inputErrorClass);
-    });
-
-    this._toggleButtonState(this._inputList, this._buttonElement);
-
-  
+    this._toggleButtonState();
   }
 }
 
