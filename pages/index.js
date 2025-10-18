@@ -4,7 +4,6 @@ import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
 console.log(uuidv4);
 
-
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
 const addTodoForm = addTodoPopup.querySelector(".popup__form");
@@ -22,8 +21,14 @@ const closeModal = (modal) => {
 // The logic in this function should all be handled in the Todo class.
 const generateTodo = (data) => {
   const todo = new Todo(data, "#todo-template");
-  const todoElement = todo.getView();
-  return todoElement;
+  return todo.getView();
+};
+
+//10/18
+const renderTodo = (item) => {
+  const todo = generateTodo(item);
+  todosList.append(todo);
+};
 
 //
 //   todoNameEl.textContent = data.name;
@@ -49,8 +54,7 @@ const generateTodo = (data) => {
 //     todoElement.remove();
 //   });
 
-  // return todoElement;
-};
+// return todoElement;
 
 addTodoButton.addEventListener("click", () => {
   openModal(addTodoPopup);
@@ -71,15 +75,15 @@ addTodoForm.addEventListener("submit", (evt) => {
 
   const id = uuidv4();
   const values = { name, date, id };
-  const todo = generateTodo(values);
-  todosList.append(todo);
+  renderTodo(values);
+
+  newTodoValidator.resetValidation();
+  //todosList.append(todo);
   closeModal(addTodoPopup);
 });
 
-
-
 initialTodos.forEach((item) => {
-  renderTodo(item);  
+  renderTodo(item);
 });
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);

@@ -26,18 +26,21 @@ class FormValidator {
   ///needs correction - this._inputSelector -  add list of inputs usding the existing class field?
 
   _hasInvalidInput() {
-    return inputList.some((input) => !input.validity.valid);
+    return this._inputList.some((input) => !input.validity.valid);
+
+    //removed return 10/18
   }
 
-  ///needs correction -this._inputSelector, this._submitButtonSelector   - add list of inputs usding the existing class field?
+  ///sorry I dont understand what is wrong with the togglebuttonstate function? I've added this._ to the button element is that what is wrong?
+  //the hub isn't working for me
 
-  _toggleButtonState = () => {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this._inactiveButtonClass);
-      buttonElement.disabled = true;
+  _toggleButtonState () {
+    if (this._hasInvalidInput()) {
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.disabled = true;
     } else {
-      buttonElement.classList.remove(this._inactiveButtonClass);
-      buttonElement.disabled = false;
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.disabled = false;
     }
   };
 
@@ -65,7 +68,7 @@ class FormValidator {
   enableValidation() {
     this._formEl.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._resetValidation();
+     // this._resetValidation();
     });
     this._setEventListeners();
   }
